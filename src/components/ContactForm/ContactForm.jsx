@@ -1,30 +1,30 @@
-import { Component } from 'react';
+import React, { useState } from 'react';
 import { Input, AddButton, Form, Title } from './ContactForm.styled';
 
-class ContactForm extends Component {
-    state = {
-    name: '',
-    number: '',
+const ContactForm = ({ creatContact }) => {
+    const [name, setName] = useState('');
+    const [number, setNumber] = useState('');
+
+    const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'name') {
+        setName(value);
+    } else if (name === 'number') {
+        setNumber(value);
+    }
+};
+
+    const addContact = (e) => {
+    e.preventDefault();
+    creatContact({ name, number });
+    setName('');
+    setNumber('');
     };
 
-    handleChange = ({ target }) => {
-    this.setState({
-    [target.name]: target.value,
-    });
-};
-
-    addContact = e => {
-    e.preventDefault();
-    this.props.creatContact(this.state);
-
-    this.setState({ name: '', number: '' });
-};
-
-render() {
     return (
     <>
         <Title>Phonebook</Title>
-        <Form onSubmit={this.addContact}>
+        <Form onSubmit={addContact}>
         <Input
             type="text"
             name="name"
@@ -32,8 +32,8 @@ render() {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
             placeholder="Name"
-            onChange={this.handleChange}
-            value={this.state.name}
+            onChange={handleChange}
+            value={name}
         />
         <Input
             type="tel"
@@ -42,15 +42,13 @@ render() {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
             placeholder="Number"
-            onChange={this.handleChange}
-            value={this.state.number}
+            onChange={handleChange}
+            value={number}
         />
         <AddButton type="submit">Add contacts</AddButton>
         </Form>
     </>
     );
-}
-}
-
+};
 
 export default ContactForm;
