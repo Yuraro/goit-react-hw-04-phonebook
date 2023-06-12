@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input, AddButton, Form, Title } from './ContactForm.styled';
 
-const ContactForm = ({ creatContact }) => {
+const ContactForm = ({ createContact }) => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
 
@@ -16,7 +16,7 @@ const ContactForm = ({ creatContact }) => {
 
     const addContact = (e) => {
     e.preventDefault();
-    creatContact({ name, number });
+    createContact({ name, number });
     setName('');
     setNumber('');
     };
